@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Information - EchoCipher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body data-page="model-info">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <main class="main-content">
+            <header class="top-header"></header>
+
+            <div class="dashboard-wrapper">
+                <div class="page-header">
+                    <div>
+                        <h1>Model Information</h1>
+                        <p>Specification, benchmark results and operating limits of the deployed voice-clone detector.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary" id="checkUpdateBtn">Check for updates</button>
+                        <button class="btn-primary" id="runSelfTestBtn">Run self-test</button>
+                    </div>
+                </div>
+
+                <div class="stack">
+                    <div class="card-grid-3">
+                        <div class="dashboard-card">
+                            <div class="card-header"><h3>Deployment</h3></div>
+                            <ul class="spec-list">
+                                <li><span class="spec-key">Model</span><span class="spec-val">Voice Clone Detector</span></li>
+                                <li><span class="spec-key">Version</span><span class="spec-val">v1.0.0</span></li>
+                                <li><span class="spec-key">Architecture</span><span class="spec-val">CNN + BiLSTM</span></li>
+                                <li><span class="spec-key">Runtime</span><span class="spec-val">ONNX Runtime</span></li>
+                                <li><span class="spec-key">Status</span><span class="spec-val"><span class="pill real">Healthy</span></span></li>
+                            </ul>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header"><h3>Input Requirements</h3></div>
+                            <ul class="spec-list">
+                                <li><span class="spec-key">Formats</span><span class="spec-val">WAV, MP3, FLAC, M4A, OGG</span></li>
+                                <li><span class="spec-key">Sample rate</span><span class="spec-val">16 kHz (resampled)</span></li>
+                                <li><span class="spec-key">Channels</span><span class="spec-val">Mono</span></li>
+                                <li><span class="spec-key">Clip length</span><span class="spec-val">1 s &ndash; 5 min</span></li>
+                                <li><span class="spec-key">Max file size</span><span class="spec-val">25 MB</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header"><h3>Live Configuration</h3></div>
+                            <ul class="spec-list">
+                                <li><span class="spec-key">Decision threshold</span><span class="spec-val" id="miThreshold">--</span></li>
+                                <li><span class="spec-key">Alert confidence</span><span class="spec-val" id="miAlert">--</span></li>
+                                <li><span class="spec-key">Analyses run</span><span class="spec-val" id="miRuns">0</span></li>
+                                <li><span class="spec-key">Avg. confidence</span><span class="spec-val" id="miAvg">--</span></li>
+                                <li><span class="spec-key">Last run</span><span class="spec-val" id="miLast">Never</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Benchmark Performance</h3>
+                            <p>Measured on the internal ASVspoof-style evaluation set (12,400 clips).</p>
+                        </div>
+                        <div class="card-grid-2">
+                            <div class="metric-blocks" id="benchmarkBlocks"></div>
+                            <div class="table-wrap">
+                                <table class="data-table confusion">
+                                    <thead>
+                                        <tr><th></th><th>Predicted real</th><th>Predicted AI</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><th>Actual real</th><td class="good">5,948</td><td>252</td></tr>
+                                        <tr><th>Actual AI</th><td>310</td><td class="good">5,890</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-grid-2">
+                        <div class="dashboard-card">
+                            <div class="card-header"><h3>Known Limitations</h3></div>
+                            <ul class="bullet-list">
+                                <li>Heavily compressed telephony audio (below 8 kbps) reduces accuracy by roughly 6 points.</li>
+                                <li>Clips shorter than 1.5 seconds often fall close to the decision threshold.</li>
+                                <li>Overlapping speakers are not separated; the dominant voice drives the verdict.</li>
+                                <li>Languages outside the training set are supported but under-validated.</li>
+                            </ul>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-header"><h3>Version History</h3></div>
+                            <div class="timeline" id="versionTimeline"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script src="pages.js"></script>
+</body>
+</html>

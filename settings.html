@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - EchoCipher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body data-page="settings">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <main class="main-content">
+            <header class="top-header"></header>
+
+            <div class="dashboard-wrapper">
+                <div class="page-header">
+                    <div>
+                        <h1>Settings</h1>
+                        <p>Profile, detection thresholds, alerting and stored data. Changes apply immediately across the app.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary" id="resetSettingsBtn">Reset to defaults</button>
+                        <button class="btn-primary" id="saveSettingsBtn">Save changes</button>
+                    </div>
+                </div>
+
+                <form id="settingsForm" class="stack">
+                    <div class="card-grid-2">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Profile</h3>
+                                <p>Shown in the header and on exported reports.</p>
+                            </div>
+                            <div class="field">
+                                <label for="displayName">Display name</label>
+                                <input type="text" id="displayName" name="displayName" required>
+                            </div>
+                            <div class="field">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="field">
+                                <label for="organisation">Organisation / team</label>
+                                <input type="text" id="organisation" name="organisation">
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card" id="preferences">
+                            <div class="card-header">
+                                <h3>Detection</h3>
+                                <p>Controls how scores are turned into verdicts.</p>
+                            </div>
+                            <div class="field">
+                                <label for="threshold">Decision threshold</label>
+                                <div class="range-row">
+                                    <input type="range" id="threshold" name="threshold" min="0.3" max="1.5" step="0.01">
+                                    <span class="range-value" id="thresholdValue">0.83</span>
+                                </div>
+                                <span class="hint">Scores at or above this value are classified as AI-generated. Lower is stricter.</span>
+                            </div>
+                            <div class="field">
+                                <label for="confidenceAlert">Alert when confidence exceeds</label>
+                                <div class="range-row">
+                                    <input type="range" id="confidenceAlert" name="confidenceAlert" min="50" max="100" step="1">
+                                    <span class="range-value" id="confidenceAlertValue">90%</span>
+                                </div>
+                                <span class="hint">Raises a notification for high-confidence AI detections.</span>
+                            </div>
+                            <div class="field">
+                                <label for="modelId">Detection model</label>
+                                <select id="modelId" name="modelId">
+                                    <option value="voice-clone-detector-v1">Voice Clone Detector v1.0 (default)</option>
+                                    <option value="voice-clone-detector-lite">Voice Clone Detector Lite (faster)</option>
+                                    <option value="voice-clone-detector-xl">Voice Clone Detector XL (accurate)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-grid-2">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Notifications &amp; behaviour</h3>
+                            </div>
+                            <div class="toggle-row">
+                                <div class="toggle-label">
+                                    <strong>Analyze on upload</strong>
+                                    <span>Start the scan as soon as a file is selected.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="autoAnalyze" name="autoAnalyze">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-row">
+                                <div class="toggle-label">
+                                    <strong>Sound alerts</strong>
+                                    <span>Play a tone when an AI voice is detected.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="soundAlerts" name="soundAlerts">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="toggle-row">
+                                <div class="toggle-label">
+                                    <strong>Email alerts</strong>
+                                    <span>Send a summary to the address above.</span>
+                                </div>
+                                <label class="switch">
+                                    <input type="checkbox" id="emailAlerts" name="emailAlerts">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Data &amp; privacy</h3>
+                                <p>Analyses are stored in this browser only.</p>
+                            </div>
+                            <div class="field">
+                                <label for="retentionDays">Keep records for</label>
+                                <select id="retentionDays" name="retentionDays">
+                                    <option value="7">7 days</option>
+                                    <option value="30">30 days</option>
+                                    <option value="90">90 days</option>
+                                    <option value="0">Forever</option>
+                                </select>
+                            </div>
+                            <ul class="spec-list">
+                                <li><span class="spec-key">Stored analyses</span><span class="spec-val" id="storedCount">0</span></li>
+                                <li><span class="spec-key">Approx. storage used</span><span class="spec-val" id="storedSize">0 KB</span></li>
+                            </ul>
+                            <div class="page-actions data-actions">
+                                <button type="button" class="btn-secondary" id="exportDataBtn">Export all data</button>
+                                <button type="button" class="btn-primary danger" id="deleteDataBtn">Delete all data</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script src="pages.js"></script>
+</body>
+</html>

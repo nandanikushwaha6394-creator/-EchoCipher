@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detection History - EchoCipher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body data-page="history">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <main class="main-content">
+            <header class="top-header"></header>
+
+            <div class="dashboard-wrapper">
+                <div class="page-header">
+                    <div>
+                        <h1>Detection History</h1>
+                        <p>Every analysis run on this device, newest first. Filter, sort, export or clear the log.</p>
+                    </div>
+                    <div class="page-actions">
+                        <button class="btn-secondary" id="exportCsvBtn">Export CSV</button>
+                        <button class="btn-primary danger" id="clearHistoryBtn">Clear history</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="filter-bar">
+                        <input type="search" id="historySearch" placeholder="Search by file name or analysis ID...">
+                        <select id="verdictFilter">
+                            <option value="all">All verdicts</option>
+                            <option value="ai">AI-generated</option>
+                            <option value="real">Real voice</option>
+                        </select>
+                        <select id="rangeFilter">
+                            <option value="all">All time</option>
+                            <option value="1">Last 24 hours</option>
+                            <option value="7">Last 7 days</option>
+                            <option value="30">Last 30 days</option>
+                        </select>
+                        <select id="pageSize">
+                            <option value="10">10 per page</option>
+                            <option value="25">25 per page</option>
+                            <option value="50">50 per page</option>
+                        </select>
+                    </div>
+
+                    <div id="historyBody"></div>
+
+                    <div class="table-footer" id="historyFooter" hidden>
+                        <span id="historyCount"></span>
+                        <div class="pagination">
+                            <button id="prevPage" type="button">Previous</button>
+                            <span id="pageLabel" class="mono"></span>
+                            <button id="nextPage" type="button">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script src="pages.js"></script>
+</body>
+</html>

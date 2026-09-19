@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics - EchoCipher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body data-page="analytics">
+    <div class="app-container">
+        <aside class="sidebar"></aside>
+        <main class="main-content">
+            <header class="top-header"></header>
+
+            <div class="dashboard-wrapper">
+                <div class="page-header">
+                    <div>
+                        <h1>Analytics</h1>
+                        <p>Trends across your stored analyses. All figures are computed from real records on this device.</p>
+                    </div>
+                    <div class="page-actions">
+                        <select id="analyticsRange" class="range-select">
+                            <option value="7">Last 7 days</option>
+                            <option value="14">Last 14 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="kpi-grid" id="analyticsKpis"></div>
+
+                <div class="stack">
+                    <div class="card-grid-2">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Detections Over Time</h3>
+                                <p>Real vs AI-generated per day</p>
+                            </div>
+                            <div class="chart-container"><canvas id="trendChart"></canvas></div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Verdict Split</h3>
+                                <p>Share of analyses by outcome</p>
+                            </div>
+                            <div class="chart-container"><canvas id="splitChart"></canvas></div>
+                        </div>
+                    </div>
+
+                    <div class="card-grid-2">
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Confidence Distribution</h3>
+                                <p>How decisive the model has been</p>
+                            </div>
+                            <div class="chart-container"><canvas id="confidenceChart"></canvas></div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="card-header">
+                                <h3>Highest-Risk Analyses</h3>
+                                <p>AI verdicts with the strongest confidence</p>
+                            </div>
+                            <div id="riskList"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="app.js"></script>
+    <script src="pages.js"></script>
+</body>
+</html>
